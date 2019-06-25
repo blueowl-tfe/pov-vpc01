@@ -109,3 +109,24 @@ resource "aws_route_table_association" "subnet-public-3-a" {
     subnet_id = "${aws_subnet.subnet-public-3.id}"
     route_table_id = "${aws_route_table.subnet-public.id}"
 }
+
+#SECURITY GROUP(s)//-----------------------------------------------------------  
+
+resource "aws_security_group" "sg" {
+  vpc_id = "${aws_vpc.vpc.id}"
+  name = "vinnie-sgtest"
+  description = "security group that allows ssh and all egress traffic"
+  egress {
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"] 
+ }
+
+  ingress {
+      from_port = 22
+      to_port = 22
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/32"]
+ }
+}
