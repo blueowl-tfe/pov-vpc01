@@ -1,5 +1,9 @@
 #VPC//------------------------------------------------------------------------- 
 
+provider "aws" {
+  region = "${var.aws_region}"
+}
+
 resource "aws_vpc" "vpc" {
     cidr_block = "11.0.0.0/16"
     instance_tenancy = "default"
@@ -127,6 +131,6 @@ resource "aws_security_group" "sg" {
       from_port = 22
       to_port = 22
       protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/32"]
+      cidr_blocks = ["${var.my_ip}"]
  }
 }
